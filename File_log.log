@@ -1,0 +1,105 @@
+2021-05-14 11:20:47 - INFO - Failed login
+2021-05-14 11:20:53 - INFO - Failed login
+2021-05-14 11:21:00 - INFO - Failed login
+2021-05-14 11:21:07 - INFO - Failed login
+2021-05-14 11:41:48 - INFO - login education
+2021-05-14 11:44:05 - INFO - login student
+2021-05-14 11:45:00 - ERROR - mistake item
+Traceback (most recent call last):
+  File "C:/Users/Allah/PycharmProjects/Test_Project/main.py", line 27, in menu_student
+    assert slc_item in ['1', '2', '3', '4', '5']
+AssertionError
+2021-05-14 11:45:38 - INFO - selection unit successful
+2021-05-14 11:46:23 - INFO - remove course successful
+2021-05-14 11:47:43 - INFO - Failed login
+2021-05-14 11:47:48 - INFO - Failed login
+2021-05-14 11:47:52 - INFO - Failed login
+2021-05-14 13:14:25 - INFO - login student
+2021-05-14 13:14:59 - INFO - selection unit successful
+2021-05-14 13:15:28 - INFO - remove course successful
+2021-05-14 13:18:14 - INFO - login education
+2021-05-14 13:18:41 - INFO - login student
+2021-05-14 13:19:18 - ERROR - mistake item
+Traceback (most recent call last):
+  File "C:/Users/Allah/PycharmProjects/Test_Project/main.py", line 27, in menu_student
+    assert slc_item in ['1', '2', '3', '4', '5']
+AssertionError
+2021-05-14 13:19:25 - INFO - selection unit successful
+2021-05-14 13:20:48 - INFO - login student
+2021-05-14 13:22:15 - INFO - login student
+2021-05-14 13:25:19 - INFO - login education
+2021-05-14 13:25:39 - INFO - login student
+2021-05-14 13:25:48 - INFO - selection unit successful
+2021-05-14 13:30:30 - INFO - login education
+2021-05-14 13:30:45 - INFO - login student
+2021-05-14 13:30:50 - INFO - selection unit successful
+2021-05-14 13:31:11 - INFO - remove course successful
+2021-05-14 13:41:16 - INFO - login student
+2021-05-14 13:42:14 - INFO - remove course successful
+2021-05-14 13:57:33 - INFO - login student
+2021-05-14 13:57:54 - INFO - selection unit successful
+2021-05-14 13:58:09 - INFO - remove course successful
+2021-05-14 13:58:26 - INFO - remove course successful
+2021-05-14 14:08:42 - INFO - login student
+2021-05-14 14:09:12 - INFO - selection unit successful
+2021-05-14 14:09:31 - INFO - remove course successful
+2021-05-14 17:04:19 - INFO - login education
+2021-05-14 17:04:41 - INFO - login student
+2021-05-14 17:04:51 - INFO - selection unit successful
+2021-05-14 17:04:59 - INFO - remove course successful
+2021-05-14 17:14:56 - INFO - login student
+2021-05-14 17:15:04 - INFO - selection unit successful
+2021-05-14 17:16:15 - INFO - remove course successful
+2021-05-14 17:26:18 - INFO - login student
+2021-05-14 17:26:48 - INFO - selection unit successful
+2021-05-14 17:27:04 - INFO - remove course successful
+2021-05-14 17:30:14 - INFO - login student
+2021-05-14 17:31:17 - INFO - login student
+2021-05-14 17:33:53 - INFO - login education
+2021-05-14 17:34:14 - INFO - login student
+2021-05-14 17:34:21 - INFO - selection unit successful
+2021-05-14 17:34:47 - INFO - remove course successful
+2021-05-14 17:37:49 - INFO - login student
+2021-05-14 17:37:56 - INFO - selection unit successful
+2021-05-14 17:42:08 - INFO - login student
+2021-05-14 17:42:50 - INFO - login student
+2021-05-14 17:43:07 - INFO - remove course successful
+2021-05-14 17:45:24 - INFO - login education
+2021-05-14 17:46:15 - INFO - login student
+2021-05-14 17:46:23 - INFO - selection unit successful
+2021-05-14 17:48:08 - INFO - login student
+2021-05-14 17:49:12 - INFO - remove course successful
+2021-05-14 17:50:40 - INFO - login student
+2021-05-14 17:50:44 - INFO - selection unit successful
+2021-05-14 17:50:54 - INFO - remove course successful
+2021-05-14 17:51:13 - INFO - login student
+2021-05-14 17:51:34 - INFO - remove course successful
+2021-05-14 23:19:37 - INFO - login education
+2021-05-14 23:20:18 - ERROR - mistake item
+Traceback (most recent call last):
+  File "C:/Users/Allah/PycharmProjects/Test_Project/main.py", line 86, in menu_education
+    status_crs = obj_edu.create_course(course)  # enter information course
+  File "C:\Users\Allah\PycharmProjects\Test_Project\Education.py", line 16, in create_course
+    check = Course.search_file('id_crs', course[0])
+AttributeError: type object 'Course' has no attribute 'search_file'
+2021-05-14 23:21:23 - INFO - login education
+2021-05-14 23:21:47 - ERROR - mistake item
+Traceback (most recent call last):
+  File "C:/Users/Allah/PycharmProjects/Test_Project/main.py", line 86, in menu_education
+    status_crs = obj_edu.create_course(course)  # enter information course
+  File "C:\Users\Allah\PycharmProjects\Test_Project\Education.py", line 19, in create_course
+    obj_course = Course(*crs)
+TypeError: __init__() missing 1 required positional argument: 'field_crs'
+2021-05-14 23:22:25 - INFO - course added
+NoneType: None
+2021-05-14 23:23:02 - INFO - accept selective unit
+2021-05-14 23:23:08 - INFO - login student
+2021-05-14 23:23:15 - INFO - selection unit successful
+2021-05-14 23:23:28 - ERROR - mistake item
+Traceback (most recent call last):
+  File "C:/Users/Allah/PycharmProjects/Test_Project/main.py", line 27, in menu_student
+    assert slc_item in ['1', '2', '3', '4', '5']
+AssertionError
+2021-05-14 23:23:39 - INFO - remove course successful
+2021-05-14 23:24:33 - INFO - login student
+2021-05-14 23:24:53 - INFO - remove course successful
