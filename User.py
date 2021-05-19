@@ -1,5 +1,4 @@
 import hashlib
-import os
 import csv
 
 
@@ -14,6 +13,11 @@ class User:
 
     @staticmethod
     def login(new_username, new_password):
+        """
+        :param new_username: username student or education
+        :param new_password: password student or education
+        :return: all attributes student or education in file for create instance. if person is student return 2 and if education return 1
+        """
         hash_pass = hashlib.md5(new_password.encode()).hexdigest()
         try:
             with open('file_education.csv', 'r') as file_edu:
@@ -40,7 +44,6 @@ class User:
                             print(f"successful login")
                             return 2, row  # login student
 
-
             print("Your username and/or password do not match ")  # not login
             return 0, 0
         except FileNotFoundError:
@@ -49,6 +52,12 @@ class User:
 
     @staticmethod
     def register(new_username, new_password, name_file):
+        """
+        :param new_username: username student or education
+        :param new_password: password student or education
+        :param name_file: name file student or education
+        :return: if username is not available return 0 else 1
+        """
         hash_pass = hashlib.md5(new_password.encode()).hexdigest()
         try:
             with open('file_education.csv', 'r') as file_edu:
@@ -62,8 +71,8 @@ class User:
                             print(f"The username {new_username} is not available")
                             print(f'{50 * "-"}')
                             return 0  # no register
-            with open('file_student.csv', 'r') as file_edu:
-                csv_reader = csv.reader(file_edu)
+            with open('file_student.csv', 'r') as file_stu:
+                csv_reader = csv.reader(file_stu)
                 line_count = 0
                 for row in csv_reader:
                     if line_count == 0:

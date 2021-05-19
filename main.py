@@ -13,6 +13,10 @@ my_logger.addHandler(file_handler)
 
 
 def menu_student(obj_stu):
+    """
+    menu student
+    :param obj_stu: instance student
+    """
     while True:
         print(f'{50 * "*"} + Welcome {obj_stu.username} + {50 * "*"}\n'
               f'1- Show field course list\n'
@@ -61,12 +65,16 @@ def menu_student(obj_stu):
                     print(status_rm_crs)
             elif slc_item == '5':
                 break
-        except:
+        except AssertionError:
             my_logger.error('mistake item', exc_info=True)
             print('Please enter item correct')
 
 
 def menu_education(obj_edu):
+    """
+    menu education
+    :param obj_edu: instance education
+    """
     while True:
         print(f'{50 * "*"} + Welcome {obj_edu.username} + {50 * "*"}\n'
               f'1- Enter information course\n'
@@ -127,12 +135,15 @@ def menu_education(obj_edu):
                             print(status_rm_crs)
             elif slc_item == '4':
                 break
-        except:
+        except AssertionError:
             print('Please enter item correct')
             my_logger.error('mistake item', exc_info=True)
 
 
 def menu_login():
+    """
+    menu login student or education
+    """
     cnt = 1
     list_username = []
     while True:
@@ -160,6 +171,9 @@ def menu_login():
 
 
 def menu():
+    """
+    main menu
+    """
     while True:
         print(f'{50 * "*"} + University + {50 * "*"}\n'
               f'1- Register education\n'
@@ -185,9 +199,10 @@ def menu():
                 menu_login()
             elif slc_item == '3':
                 break
-        except:
+        except AssertionError:
             print('Please Enter correct item !!!')
             my_logger.error('mistake item', exc_info=True)
 
 
 menu()
+

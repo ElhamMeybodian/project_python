@@ -4,6 +4,15 @@ import csv
 import os
 import pandas as pd
 import ast
+import logging
+
+my_logger = logging.getLogger(__name__)
+my_logger.setLevel(logging.INFO)
+file_handler = logging.FileHandler('File_log.log')
+file_handler.setLevel(logging.INFO)
+log_format = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+file_handler.setFormatter(log_format)
+my_logger.addHandler(file_handler)
 
 
 class Student(User):
@@ -65,12 +74,11 @@ class Student(User):
                 else:
                     if row['field_crs'] == self.field or row['field_crs'] == 'public':
                         print(
-                            f'\t{row["id_crs"]}, {row["name"]}, {row["unit"]}, {row["capacity"]}, {row["name_prof"]}, {row["time_exam"]}, {row["time_class"]}, {row["field_crs"]}')
+                            f'\t{row["id_crs"]}, {row["name"]}, {row["unit"]}, {row["capacity"]}, {row["name_prof"]}, {row["time_exam"]}, {row["time_class"]}, {row["field_crs"]},{row["status_capacity"]}')
 
     def get_course(self, list_id_crs):
         """
-        :param list_id_crs:
-        :return:
+        :param list_id_crs: list selective courses by student
         """
         sum_unit = 0
         list_obj_crs = []
@@ -87,16 +95,20 @@ class Student(User):
             return 'You are not allowed to select the unit again '
         else:
             if self.course != '':
+                # convert string to list
                 self.course = ast.literal_eval(self.course)
             for obj_crs in list_obj_crs:
                 for pass_crs in self.course:
                     if pass_crs == obj_crs.id_crs:
                         return f'invalid course because already passed this "{obj_crs.name}" course  '
-                if obj_crs.capacity > obj_crs.status_capacity:
+                try:
+                    assert obj_crs.capacity > obj_crs.status_capacity and obj_crs.field_crs == self.field or obj_crs.field_crs == 'public'
                     sum_unit += obj_crs.unit
-                else:
-                    return f'capacity course {obj_crs.id_crs} full'
-            if 20 >= sum_unit >= 10:
+                except AssertionError:
+                    my_logger.error(f'capacity course {obj_crs.id_crs} full or enter id course mistake', exc_info=True)
+                    return f'capacity course {obj_crs.id_crs} full or enter {obj_crs.id_crs} id course mistake'
+            try:
+                assert 20 >= sum_unit >= 10
                 self.total_unit = sum_unit + int(self.total_unit)
                 self.total_unit_term = sum_unit
                 self.term = 1 + int(self.term)
@@ -108,14 +120,14 @@ class Student(User):
                     obj_crs.file_selective_crs(self.username, self.term)
                     obj_crs.update_file_course()
                 return True
-            else:
+            except AssertionError:
+                my_logger.error('Number of units is not allowed', exc_info=True)
                 return 'Number of units is not allowed :('
 
     def remove_crs(self, list_id_crs, num_unit_remove):
         """
-        :param list_id_crs:
-        :param num_unit_remove:
-        :return:
+        :param list_id_crs:list selective courses by student for remove
+        :param num_unit_remove:number of unit for remove course
         """
         sum_unit = 0
         list_obj_crs = []
@@ -129,9 +141,10 @@ class Student(User):
                 else:
                     list_obj_crs.append(check)
             else:
-                print(f'course {id_course} is not in list selective course ')
+                return f'course {id_course} is not in list selective course '
         # remove courses
         if type(self.course) is not list:
+            # convert string to list
             self.course = ast.literal_eval(self.course)
         list_course = self.course.copy()
         for obj_crs in list_obj_crs:
@@ -143,16 +156,18 @@ class Student(User):
                         obj_crs.status_capacity -= 1
                         obj_crs.update_file_course()
                         obj_crs.update_file_slc_course()
-        if sum_unit > 0:
+        try:
+            assert sum_unit > 0
             self.total_unit -= sum_unit
             self.total_unit_term -= sum_unit
             return True
-        else:
+        except AssertionError:
+            my_logger.error('Number of units is not allowed', exc_info=True)
             return 'Number of units is not allowed :('
 
     def update_file_stu(self):
         """
-        :return:
+        :return: if update file do return true
         """
         df = pd.read_csv("file_student.csv")
         with open('file_student.csv', 'r') as edit_file:
@@ -162,13 +177,14 @@ class Student(User):
             line = 0
             for row in file_stu_r:
                 if self.username == row['username']:
+                    # change type course
                     df['course'] = df['course'].astype('object')
                     df.at[line - 1, 'course'] = self.course
                     df.loc[line - 1, 'total_unit'] = self.total_unit
                     df.loc[line - 1, 'total_unit_term'] = self.total_unit_term
                     df.loc[line - 1, 'term'] = self.term
                     df.to_csv("file_student.csv", index=False)
-                    # return 'selection unit successful :))'
+                    # selection unit successful :))
                     return True
                 line += 1
             return 'not find username student'
@@ -176,9 +192,9 @@ class Student(User):
     @classmethod
     def search_file(cls, metric, value_metric):
         """
-        :param metric:
-        :param value_metric:
-        :return:
+        :param metric:name attribute
+        :param value_metric:value attribute
+        :return:make a instance of student class
         """
         check_file = os.path.exists('file_Student.csv')
         if check_file:
@@ -196,22 +212,13 @@ class Student(User):
         """
         print list students
         """
-        with open('file_student.csv', 'r') as file_stu:
-            fieldnames = ['username', 'password', 'stu_num', 'field', 'course', 'total_unit',
-                          'total_unit_term', 'term']
-            file_stu_r = csv.DictReader(file_stu, fieldnames=fieldnames)
-            line_count = 0
-            for row in file_stu_r:
-                if line_count == 0:
-                    print(f'{", ".join(row)}')
-                    line_count += 1
-                else:
-                    print(
-                        f'\t{row["username"]},{row["password"]},{row["stu_num"]},{row["field"]},{row["course"]},{row["total_unit"]},{row["total_unit_term"]},{row["term"]}')
+        df = pd.read_csv('file_student.csv')
+        show_list = df.loc[:, ['username', 'stu_num', 'field', 'course', 'total_unit', 'total_unit_term', 'term']]
+        print(show_list)
 
     def file_student(self):
         """
-        :return:
+        create file student
         """
         check_file = os.path.exists('file_student.csv')
         if check_file:

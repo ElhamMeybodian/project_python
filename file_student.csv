@@ -1,3 +1,5 @@
 username,password,stu_num,field,course,total_unit,total_unit_term,term
-e,202cb962ac59075b964b07152d234b70,123,com,"[1, 2, 4]",8,2,2
-a,202cb962ac59075b964b07152d234b70,123,com,[4],2,2,1
+e,202cb962ac59075b964b07152d234b70,123,com,"[1, 2, 3]",9,0,3
+m,202cb962ac59075b964b07152d234b70,123,com,"[3, 5]",6,6,1
+nazi,202cb962ac59075b964b07152d234b70,123,com,,0,0,0
+elham,202cb962ac59075b964b07152d234b70,123,com,"[1, 2, 5, 6]",11,11,2

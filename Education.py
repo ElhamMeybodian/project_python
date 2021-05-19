@@ -3,24 +3,22 @@ from User import User
 from Course import Course
 
 
-
-
 class EducationAdmin(User):
 
     @staticmethod
     def create_course(course):
         """
-        create instance course and add new course to file
-        :return: object course
+        :param course: list info course
+        :return: create instance course and add new course to file
         """
         check = Course.search_file_crs('id_crs', course[0])
         if check is False:
             crs = [i.strip() if i.isdigit() else i for i in course]
             obj_course = Course(*crs)
             obj_course.file_crs()
-
             return 1
         else:
+            # added already course
             return 0
 
     @staticmethod
@@ -38,4 +36,5 @@ class EducationAdmin(User):
             # student already register
             return 0
         else:
+            # sts_reg == NONE
             return stu
